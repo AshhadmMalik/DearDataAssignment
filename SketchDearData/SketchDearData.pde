@@ -1,161 +1,333 @@
 
-Car[] cars = {
-  new Car(1, "Black", "BMW", "14/07/2026", "Saloon"),
-  new Car(2, "White", "Kia", "15/07/2026", "SUV"),
-  new Car(3, "Grey", "Mercedes", "16/07/2026", "Hatchback"),
-  new Car(4, "Blue", "BMW", "17/07/2026", "SUV"),
-  new Car(5, "Silver", "BYD", "18/07/2026", "Saloon"),
-  new Car(6, "Black", "Corsa", "19/07/2026", "Saloon"),
-  new Car(7, "Red", "Vauxhall", "20/07/2026", "Hatchback"),
-  new Car(8, "White", "Volkswagen", "21/07/2026", "Hatchback"),
-  new Car(9, "Grey", "Mercedes", "22/07/2026", "SUV"),
-  new Car(10, "Blue", "BMW", "23/07/2026", "Saloon"),
-  new Car(11, "Silver", "Kia", "24/07/2026", "SUV"),
-  new Car(12, "Black", "Range Rover", "25/07/2026", "SUV"),
-  new Car(13, "White", "Toyota", "26/07/2026", "Saloon"),
-  new Car(14, "Grey", "Audi", "27/07/2026", "Saloon"),
-  new Car(15, "Blue", "Rolls-Royce", "28/07/2026", "Hatchback"),
-  new Car(16, "Silver", "Ferrari", "29/07/2026", "Hatchback"),
-  new Car(17, "Black", "Lamborghini", "30/07/2026", "Saloon"),
-  new Car(18, "White", "BYD", "31/07/2026", "SUV"),
-  new Car(19, "Grey", "BMW", "01/08/2026", "Saloon"),
-  new Car(20, "Red", "BMW", "02/08/2026", "Saloon"),
-  new Car(21, "Blue", "Kia", "03/08/2026", "Hatchback"),
-  new Car(22, "Black", "Mercedes", "04/08/2026", "SUV"),
-  new Car(23, "Silver", "Toyota", "05/08/2026", "Saloon"),
-  new Car(24, "Red", "BYD", "06/08/2026", "Hatchback"),
-  new Car(25, "Red", "Audi", "07/08/2026", "Saloon"),
-  new Car(26, "Green", "Corsa", "08/08/2026", "SUV"),
-  new Car(27, "Silver", "BMW", "09/08/2026", "SUV"),
-  new Car(28, "Black", "Honda", "10/08/2026", "Hatchback")
+Car[] cars;
+
+String[] dates = {
+  "14/07/2026", "15/07/2026", "16/07/2026", "17/07/2026",
+  "18/07/2026", "19/07/2026", "20/07/2026", "21/07/2026",
+  "22/07/2026", "23/07/2026", "24/07/2026", "25/07/2026",
+  "26/07/2026", "27/07/2026", "28/07/2026", "29/07/2026",
+  "30/07/2026", "31/07/2026", "1/8/2026", "2/8/2026",
+  "3/8/2026", "4/8/2026", "5/8/2026", "6/8/2026",
+  "7/8/2026", "8/8/2026", "9/8/2026", "10/8/2026"
+};
+
+int[] counts = {
+  8, 4, 6, 2, 5, 1, 4, 2, 6, 3,
+  1, 5, 3, 7, 3, 1, 4, 6, 7, 3,
+  1, 3, 6, 3, 1, 3, 4, 5
+};
+
+String[] colours = {
+  "Black", "White", "Grey", "Blue", "Silver",
+  "Black", "Red", "White", "Grey", "Blue",
+  "Silver", "Black", "White", "Grey", "Blue",
+  "Silver", "Black", "White", "Grey", "Red",
+  "Blue", "Black", "Silver", "Red", "Red",
+  "Green", "Silver", "Black"
+};
+
+String[] brands = {
+  "BMW", "Kia", "Mercedez", "BMW", "BYD",
+  "Corsa", "Vauxhall", "VolksWagon", "Mercedez",
+  "BMW", "KIA", "Range Rover", "Toyota", "Audi",
+  "Rolls Royce", "Ferrari", "Lamborghini", "BYD",
+  "BMW", "BMW", "Kia", "Mercedez", "Toyota",
+  "BYD", "Audi", "Corsa", "BMW", "Honda"
+};
+
+String[] vehicleTypes = {
+  "Saloon", "SUV", "Hatchback", "SUV", "Saloon",
+  "Saloon", "Hatchback", "Hatchback", "SUV", "Saloon",
+  "SUV", "SUV", "Saloon", "Saloon", "Hatchback",
+  "Hatchback", "Saloon", "SUV", "Saloon", "Saloon",
+  "Hatchback", "SUV", "Saloon", "Hatchback", "Saloon",
+  "SUV", "SUV", "Hatchback"
 };
 
 void setup() {
-  size(1200, 1100);
+  size(1500, 850);
   smooth();
   textFont(createFont("Arial", 14));
+
+  // Calculate the total number of cars.
+  int totalCars = 0;
+
+  for (int i = 0; i < counts.length; i++) {
+    totalCars += counts[i];
+  }
+
+  // Create one Car object for every individual car.
+  cars = new Car[totalCars];
+
+  int index = 0;
+
+  for (int i = 0; i < counts.length; i++) {
+
+    for (int j = 0; j < counts[i]; j++) {
+
+      cars[index] = new Car(
+        colours[i],
+        brands[i],
+        dates[i],
+        vehicleTypes[i],
+        i,
+        j,
+        counts[i]
+      );
+
+      index++;
+    }
+  }
 }
 
 void draw() {
   background(248, 247, 243);
 
-  // Project title
+  // Main heading.
   fill(35);
   textAlign(CENTER);
   textSize(34);
-  text("THE CARS AROUND US", width/2, 55);
+  text("My Observation of Cars", width/2, 55);
 
   textSize(15);
-  fill(100);
-  text("A visual exploration of 100 car observations",
+  fill(110);
+  text("A visual exploration of cars observed over time",
        width/2, 85);
 
-  // Observation counter
+  // Display the number of cars.
   fill(35);
   textSize(17);
-  text(cars.length + " / 100 OBSERVATIONS",
-       width/2, 125);
+  text(cars.length + " CARS RECORDED", width/2, 125);
 
-  // Draw all car observations
+  drawLegend();
+
+  // Draw all individual cars.
   for (int i = 0; i < cars.length; i++) {
-    int column = i % 10;
-    int row = i / 10;
-
-    float x = 70 + column * 118;
-    float y = 215 + row * 85;
-
-    cars[i].display(x, y);
+    cars[i].display();
   }
 
-  // Legend
-  drawLegend();
+  // Display dates along the timeline.
+  drawDates();
+
+  // Display information when the mouse hovers over a car.
+  for (int i = 0; i < cars.length; i++) {
+
+    if (cars[i].isMouseOver()) {
+      cars[i].displayInformation();
+      break;
+    }
+  }
+}
+
+void drawDates() {
+  fill(70);
+  textSize(10);
+  textAlign(CENTER);
+
+  for (int i = 0; i < dates.length; i++) {
+
+    float x = 90 + i * 48;
+
+    pushMatrix();
+    translate(x, 700);
+    rotate(-HALF_PI);
+
+    text(dates[i], 0, 0);
+
+    popMatrix();
+  }
+
+  fill(35);
+  textSize(14);
+  text("OBSERVATION DATE", width/2, 790);
 }
 
 void drawLegend() {
-  fill(35);
-  textAlign(CENTER);
-  textSize(19);
-  text("UNDERSTANDING THE DATA", width/2, 1080);
 
-  // Circle sizes
-  fill(110);
-  textSize(12);
-  text("Hatchback = Small     Saloon = Medium     SUV = Large",
-       width/2, 1050);
+  // Separate legend box.
+  fill(255);
+  stroke(210);
+  rect(1080, 145, 370, 155, 12);
+
+  fill(35);
+  textAlign(LEFT);
+  textSize(15);
+  text("UNDERSTANDING THE DATA", 1100, 170);
+
+  textSize(11);
+  fill(80);
+
+  // Colour examples.
+  fill(35);
+  ellipse(1110, 195, 15, 15);
+  fill(60);
+  text("Black", 1125, 199);
+
+  fill(255);
+  stroke(100);
+  ellipse(1190, 195, 15, 15);
+  fill(60);
+  text("White", 1205, 199);
+
+  fill(145);
+  noStroke();
+  ellipse(1280, 195, 15, 15);
+  fill(60);
+  text("Grey", 1295, 199);
+
+  fill(55, 125, 210);
+  ellipse(1110, 220, 15, 15);
+  fill(60);
+  text("Blue", 1125, 224);
+
+  fill(190, 195, 200);
+  ellipse(1190, 220, 15, 15);
+  fill(60);
+  text("Silver", 1205, 224);
+
+  fill(215, 55, 65);
+  ellipse(1280, 220, 15, 15);
+  fill(60);
+  text("Red", 1295, 224);
+
+  fill(65, 155, 95);
+  ellipse(1110, 245, 15, 15);
+  fill(60);
+  text("Green", 1125, 249);
+
+  fill(60);
+  text("Circle size: SUV = Large", 1190, 249);
+  text("Saloon = Medium | Hatchback = Small",
+       1100, 275);
 }
 
-// Car class
+// Car class.
 class Car {
 
-  int number;
   String colour;
   String brand;
   String date;
   String vehicleType;
 
-  Car(int n, String c, String b, String d, String v) {
-    number = n;
+  int dateIndex;
+  int positionInGroup;
+  int groupCount;
+
+  Car(String c, String b, String d, String v,
+      int dateNumber, int position, int total) {
+
     colour = c;
     brand = b;
     date = d;
     vehicleType = v;
+
+    dateIndex = dateNumber;
+    positionInGroup = position;
+    groupCount = total;
   }
 
-  // Returns the circle size based on vehicle type
+  // Calculate the circle size from vehicle type.
   float getCircleSize() {
+
     if (vehicleType.equals("SUV")) {
-      return 40;
-    } else if (vehicleType.equals("Saloon")) {
-      return 30;
-    } else {
-      return 21;
+      return 34;
+    }
+    else if (vehicleType.equals("Saloon")) {
+      return 27;
+    }
+    else {
+      return 20;
     }
   }
 
-  // Returns the correct colour
+  // Convert the car colour into a Processing colour.
   color getCarColour() {
+
     if (colour.equals("Black")) {
       return color(40, 40, 40);
-    } else if (colour.equals("White")) {
+    }
+    else if (colour.equals("White")) {
       return color(255, 255, 255);
-    } else if (colour.equals("Grey")) {
+    }
+    else if (colour.equals("Grey")) {
       return color(145, 145, 145);
-    } else if (colour.equals("Blue")) {
+    }
+    else if (colour.equals("Blue")) {
       return color(55, 125, 210);
-    } else if (colour.equals("Silver")) {
+    }
+    else if (colour.equals("Silver")) {
       return color(190, 195, 200);
-    } else if (colour.equals("Red")) {
+    }
+    else if (colour.equals("Red")) {
       return color(215, 55, 65);
-    } else if (colour.equals("Green")) {
+    }
+    else if (colour.equals("Green")) {
       return color(65, 155, 95);
     }
 
     return color(150);
   }
 
-  // Displays one car observation
-  void display(float x, float y) {
+  // Calculate the circle's position.
+  float getX() {
+    return 90 + dateIndex * 48;
+  }
 
-    // Observation number
-    fill(100);
-    textAlign(CENTER);
-    textSize(11);
-    text(number, x, y - 38);
+  float getY() {
+    return 470 +
+      (positionInGroup - (groupCount - 1) / 2.0) * 43;
+  }
 
-    // Car circle
+  // Draw one individual car.
+  void display() {
+
     fill(getCarColour());
-    stroke(70);
+    stroke(75);
     strokeWeight(1);
-    ellipse(x, y, getCircleSize(), getCircleSize());
 
-    // Brand
-    fill(40);
-    textSize(11);
-    text(brand, x, y + 32);
+    ellipse(getX(), getY(),
+            getCircleSize(), getCircleSize());
+  }
 
-    // Date
-    fill(120);
-    textSize(9);
-    text(date, x, y + 46);
+  // Check whether the mouse is over this circle.
+  boolean isMouseOver() {
+
+    float distance = dist(
+      mouseX, mouseY, getX(), getY()
+    );
+
+    return distance < getCircleSize() / 2;
+  }
+
+  // Display a circular information panel.
+  void displayInformation() {
+
+    float panelX = constrain(mouseX + 115, 120, width - 120);
+    float panelY = constrain(mouseY, 120, height - 120);
+
+    fill(255);
+    stroke(80);
+    strokeWeight(2);
+
+    ellipse(panelX, panelY, 215, 215);
+
+    fill(35);
+    textAlign(CENTER);
+
+    textSize(16);
+    text("CAR INFORMATION", panelX, panelY - 65);
+
+    textSize(14);
+    text(brand, panelX, panelY - 32);
+
+    textSize(12);
+    text("Colour: " + colour, panelX, panelY - 5);
+
+    text("Type: " + vehicleType, panelX, panelY + 20);
+
+    text("Date: " + date, panelX, panelY + 45);
+
+    text("Cars recorded: " + groupCount,
+         panelX, panelY + 70);
   }
 }
